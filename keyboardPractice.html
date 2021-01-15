@@ -23,6 +23,26 @@
 
 			<textarea id="practiceTextArea" name="practiceTextArea" rows="4" cols="50" onInput="checkCurrentChange();">
 			</textarea>
+
+			<div>
+			<input type="checkbox" id="captureTabKey" name="captureTabKey">
+			<label for="captureTabKey">Capture Tab key</label>
+			</div>
+			<div id="tabModePanel">
+				<input type="radio" id="tabMode1"
+				name="tabMode" value="tabCharacter">
+				<label for="contactChoice1">Insert tab character</label>
+
+				<input type="radio" id="tabMode2"
+				name="tabMode" value="2Spaces">
+				<label for="tabMode2">Insert 2 spaces</label>
+
+				<input type="radio" id="tabMode4"
+				name="tabMode" value="4Spaces">
+				<label for="tabMode4">Insert 4 Spaces</label>
+			</div>
+
+
 		</div>
 	<script>
 		const TARGET_TEXT_LENGTH = 20;
@@ -95,6 +115,46 @@
 				clearPracticeText();
 			}
 		}
+
+		function isCaptureTabMode()
+		{
+			return document.getElementById('captureTabKey').checked;
+		}
+
+		function getTabEquivalentCharacter()
+		{
+			if (document.getElementById('tabMode2').checked)
+				return '  '; // 2 spaces
+			else if (document.getElementById('tabMode4').checked)
+				return '    '; // 4 spaces
+			else
+				return '\t';
+		}
+
+		// The following 20 or so lines is based heavily on the 
+		// discussion at https://stackoverflow.com/questions/18316395/javascript-for-handling-tab-key-press/18316821
+		// accessed at January 15, 2021.
+		getPracticeTextArea().addEventListener('keydown', function(e) {
+		if (isCaptureTabMode() && e.key == 'Tab') {
+			e.preventDefault();
+			const start = this.selectionStart;
+			const end = this.selectionEnd;
+
+			const tabLike = getTabEquivalentCharacter();
+			// set textarea value to: text before caret + tab + text after caret
+			this.value = this.value.substring(0, start) +
+			tabLike + this.value.substring(end);
+
+			const wantedCaretPosition = start + tabLike.length;
+
+			// Put caret after tab-like character or characters.
+			this.selectionStart = wantedCaretPosition;
+			this.selectionEnd = wantedCaretPosition;
+
+			// Needed for this typing game to be able to correct what was input.
+			checkCurrentChange();
+		}
+		});
 	</script>
 
 	</body>
