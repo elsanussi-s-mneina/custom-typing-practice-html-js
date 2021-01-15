@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<title>Keyboard Practice</title>
+	</head>
+	<body>
+		<div>
+			<label for="characterSetTextArea">Character Set to Practice:</label>
+
+			<textarea id="characterSetTextArea" name="characterSetTextArea" rows="4" cols="50">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ</textarea>
+			<button onclick="addPunctuationCharacters();">Add punctuation</button>
+		</div>
+		<div>
+			<label for="targetTextArea">Target Text:</label>
+
+			<textarea id="targetTextArea" name="targetTextArea" rows="4" cols="50">
+			</textarea>
+			<button onclick="changeTargetText();">Generate Next Text</button>
+		</div>
+		<div>
+			<label for="practiceTextArea">Type what is in the target area into here:</label>
+
+			<textarea id="practiceTextArea" name="practiceTextArea" rows="4" cols="50" onInput="checkCurrentChange();">
+			</textarea>
+		</div>
+	<script>
+		const TARGET_TEXT_LENGTH = 20;
+		const FINAL_ERROR_GRACE = 3; // should be at least one to allow for deadkeys.
+
+		const punctuationCharacterSet = "'" + '"' + "\\" + "%&?+@$_[]!;/(=0{}1*)-6789|2345";
+
+
+		function addPunctuationCharacters()
+		{
+			addToCharacterSet(punctuationCharacterSet);
+		}
+
+		function getTargetTextArea()
+		{
+			return document.getElementById('targetTextArea');
+		}
+
+		function getPracticeTextArea()
+		{
+			return document.getElementById('practiceTextArea');
+		}
+
+		function generateNewTargetText()
+		{
+			let result = "";
+			let characterSet = getCharacterSet();
+
+			for (let i = 0; i < TARGET_TEXT_LENGTH; i++)
+			{
+				let randomIndex = Math.random() * characterSet.length;
+				result += characterSet.charAt(randomIndex);
+			}
+			return result;
+		}
+
+		function getCharacterSet()
+		{
+			return document.getElementById('characterSetTextArea').value;
+		}
+
+		function addToCharacterSet(text)
+		{
+			document.getElementById('characterSetTextArea').value = document.getElementById('characterSetTextArea').value + text;
+		}
+
+		function clearPracticeText()
+		{
+			getPracticeTextArea().value = '';
+		}
+
+		function changeTargetText()
+		{
+			clearPracticeText();
+			getTargetTextArea().value = generateNewTargetText() + ' .';
+		}
+
+		function checkCurrentChange()
+		{
+			let targetText = getTargetTextArea().value;
+			let practiceText = getPracticeTextArea().value;
+
+			if (practiceText == targetText)
+			{
+				changeTargetText();
+			}
+
+			if (practiceText.length > FINAL_ERROR_GRACE && practiceText.substring(0, practiceText.length - FINAL_ERROR_GRACE) != targetText.substring(0, practiceText.length - FINAL_ERROR_GRACE))
+			{
+				clearPracticeText();
+			}
+		}
+	</script>
+
+	</body>
+</html>

@@ -1,0 +1,7 @@
+2021-01-15 version 1.0
+Could not find previous version of similar application, so I decided to write a new one.
+Wrote a new one with a textbox where the user can edit what characters to be tested; a second textbox where the computer places text for the user to type; a third textbox where the user attempts to type whatever is in the second textbox.
+
+If the user makes 3 mistakes at the end of their text, they have to start typing the text from scratch again. If the user types the full text completely, the computer generates a new random text based on the character set.
+
+The textbox containing the character set initially contains the lowercase and uppercase latin characters. A button is included that will add punctuation.
