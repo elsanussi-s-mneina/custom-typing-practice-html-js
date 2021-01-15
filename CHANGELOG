@@ -8,3 +8,7 @@ The textbox containing the character set initially contains the lowercase and up
 
 2021-01-15 version 1.01
 - added support for inserting a tab character, 2 spaces, or 4 spaces when a tab key is pressed (only into the practice text area).
+
+2021-01-15 version 1.02
+- told user which character they got wrong, and which character they confused it with.
+- congratulated the user when they typed the whole text correctly.

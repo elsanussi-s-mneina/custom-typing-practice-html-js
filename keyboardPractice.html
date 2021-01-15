@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<title>Keyboard Practice</title>
+		<!-- Version 1.01 -->
 	</head>
 	<body>
 		<div>
@@ -23,7 +24,9 @@
 
 			<textarea id="practiceTextArea" name="practiceTextArea" rows="4" cols="50" onInput="checkCurrentChange();">
 			</textarea>
-
+			<div>
+				<label id="feedbackLabel">Welcome!</label>
+			</div>
 			<div>
 			<input type="checkbox" id="captureTabKey" name="captureTabKey">
 			<label for="captureTabKey">Capture Tab key</label>
@@ -45,8 +48,8 @@
 
 		</div>
 	<script>
-		const TARGET_TEXT_LENGTH = 20;
-		const FINAL_ERROR_GRACE = 3; // should be at least one to allow for deadkeys.
+		const TARGET_TEXT_LENGTH = 7;
+		const FINAL_ERROR_GRACE = 4; // should be at least one to allow for deadkeys.
 
 		const punctuationCharacterSet = "'" + '"' + "\\" + "%&?+@$_[]!;/(=0{}1*)-6789|2345";
 
@@ -108,12 +111,22 @@
 			if (practiceText == targetText)
 			{
 				changeTargetText();
+				tellUser("Congratulations, you typed " + targetText.length + " characters correctly!")
 			}
 
 			if (practiceText.length > FINAL_ERROR_GRACE && practiceText.substring(0, practiceText.length - FINAL_ERROR_GRACE) != targetText.substring(0, practiceText.length - FINAL_ERROR_GRACE))
 			{
 				clearPracticeText();
+
+				const userMistakeMessage = "You typed the wrong character: (" + practiceText.substring(practiceText.length - 1 - FINAL_ERROR_GRACE, practiceText.length - 1 - FINAL_ERROR_GRACE + 1) + ") should have been (" + targetText.substring(practiceText.length - 1 - FINAL_ERROR_GRACE, practiceText.length - 1 - FINAL_ERROR_GRACE + 1) + ").";
+
+				tellUser(userMistakeMessage)
 			}
+		}
+
+		function tellUser(message)
+		{
+			document.getElementById('feedbackLabel').innerText = message;
 		}
 
 		function isCaptureTabMode()
