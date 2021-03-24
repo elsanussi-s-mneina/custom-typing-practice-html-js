@@ -10,15 +10,16 @@
 		<p>This is a way to practice typing whatever text you choose using whatever keyboard layout you have set up on your machine. It can even handle dead keys gracefully (i.e. it should function regardless of keyboard layout). The source code is all in one file, so you can use this offline by saving this page.</p>
 		<div>
 			<label for="targetTextArea">Target Text:</label>
+			<br>
 
 			<textarea id="targetTextArea" name="targetTextArea" rows="4" cols="50" spellcheck="false"></textarea>
 		</div>
 		<div>
-			<label for="practiceTextArea">Type what is in the target area into here:</label>
-
+			<label for="practiceTextArea">Type the target text into the following box. If you make enough mistakes, you must start from the beginning.</label>
+			<br>
 			<textarea id="practiceTextArea" name="practiceTextArea" rows="4" cols="50" onInput="checkCurrentChange();" spellcheck="false"></textarea>
 			<div>
-				<label id="feedbackLabel">Welcome!</label>
+				<label id="feedbackLabel"></label>
 			</div>
 			<div>
 			<input type="checkbox" id="captureTabKey" name="captureTabKey">
