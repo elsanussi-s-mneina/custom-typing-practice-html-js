@@ -19,3 +19,6 @@ Add hyperlink to repository. Add title and introductory paragraph explaining wha
 2021-03-24, version 1.04
 Remove text generation functionality. That is, the application no longer generates random text. This is because in one use case: memorization
 of texts, generation of random text is unnecessary and annoying.
+
+2021-03-24, unreleased changes after 1.04
+Remove whitespace appearing initially in text area.
