@@ -3,28 +3,21 @@
 	<head>
 		<meta charset="utf-8"/>
 		<title>Keyboard Practice</title>
-		<!-- Version 1.03 -->
+		<!-- Version 1.04 no generation branch -->
 	</head>
 	<body>
-		<h1>Custom Typing Practice</h1>
-		<p>This is a way to practice typing whatever text or set of characters you choose using whatever keyboard layout you have set up on your machine. It can even handle dead keys gracefully. The source code is all in one file, so you can use this offline by saving this page.</p>
-		<div>
-			<label for="characterSetTextArea">Character Set to Practice:</label>
-
-			<textarea id="characterSetTextArea" name="characterSetTextArea" rows="4" cols="50">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ</textarea>
-			<button onclick="addPunctuationCharacters();">Add punctuation</button>
-		</div>
+		<h1>Custom Typing Practice (Simple)</h1>
+		<p>This is a way to practice typing whatever text you choose using whatever keyboard layout you have set up on your machine. It can even handle dead keys gracefully (i.e. it should function regardless of keyboard layout). The source code is all in one file, so you can use this offline by saving this page.</p>
 		<div>
 			<label for="targetTextArea">Target Text:</label>
 
-			<textarea id="targetTextArea" name="targetTextArea" rows="4" cols="50">
+			<textarea id="targetTextArea" name="targetTextArea" rows="4" cols="50" spellcheck="false">
 			</textarea>
-			<button onclick="changeTargetText();">Generate Next Text</button>
 		</div>
 		<div>
 			<label for="practiceTextArea">Type what is in the target area into here:</label>
 
-			<textarea id="practiceTextArea" name="practiceTextArea" rows="4" cols="50" onInput="checkCurrentChange();">
+			<textarea id="practiceTextArea" name="practiceTextArea" rows="4" cols="50" onInput="checkCurrentChange();" spellcheck="false">
 			</textarea>
 			<div>
 				<label id="feedbackLabel">Welcome!</label>
@@ -50,19 +43,12 @@
 
 		</div>
 		<footer>
-		<p><a style="font-size: x-small; margin-left: 5em" href="https://github.com/elsanussi-s-mneina/custom-typing-practice-html-js">Get source code and documentation: v1.03, (2021-01-26). Made by Elsanussi Mneina</a></p>
+		<p><a style="font-size: x-small; margin-left: 5em" href="https://github.com/elsanussi-s-mneina/custom-typing-practice-html-js">Get source code and documentation: v1.04, (2021-03-24). Made by Elsanussi Mneina</a></p>
 		</footer>  
 	<script>
 		const TARGET_TEXT_LENGTH = 7;
 		const FINAL_ERROR_GRACE = 1; // should be at least one to allow for deadkeys.
 
-		const punctuationCharacterSet = "'" + '"' + "\\" + "%&?+@$_[]!;/(=0{}1*)-6789|2345";
-
-
-		function addPunctuationCharacters()
-		{
-			addToCharacterSet(punctuationCharacterSet);
-		}
 
 		function getTargetTextArea()
 		{
@@ -74,29 +60,6 @@
 			return document.getElementById('practiceTextArea');
 		}
 
-		function generateNewTargetText()
-		{
-			let result = "";
-			let characterSet = getCharacterSet();
-
-			for (let i = 0; i < TARGET_TEXT_LENGTH; i++)
-			{
-				let randomIndex = Math.random() * characterSet.length;
-				result += characterSet.charAt(randomIndex);
-			}
-			return result;
-		}
-
-		function getCharacterSet()
-		{
-			return document.getElementById('characterSetTextArea').value;
-		}
-
-		function addToCharacterSet(text)
-		{
-			document.getElementById('characterSetTextArea').value = document.getElementById('characterSetTextArea').value + text;
-		}
-
 		function clearPracticeText()
 		{
 			getPracticeTextArea().value = '';
@@ -105,7 +68,6 @@
 		function changeTargetText()
 		{
 			clearPracticeText();
-			getTargetTextArea().value = generateNewTargetText() + '.';
 		}
 
 		function checkCurrentChange()

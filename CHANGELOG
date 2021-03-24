@@ -15,3 +15,7 @@ The textbox containing the character set initially contains the lowercase and up
 
 2021-01-26, version 1.03
 Add hyperlink to repository. Add title and introductory paragraph explaining what this page is.
+
+2021-03-24, version 1.04
+Remove text generation functionality. That is, the application no longer generates random text. This is because in one use case: memorization
+of texts, generation of random text is unnecessary and annoying.
